@@ -12,4 +12,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class CustomerDTO implements SuperDTO, CustomerResponse {
+    private String custId;
+    private String custName;
+    private String custAddress;
+    private double custSalary;
 }
