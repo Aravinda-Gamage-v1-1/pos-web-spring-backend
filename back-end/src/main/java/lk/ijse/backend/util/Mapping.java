@@ -20,6 +20,7 @@ public class Mapping {
     }
 
     public CustomerEntity convertToEntity(CustomerDTO customerDTO) {
+        System.out.println("Hi2");
         return modelMapper.map(customerDTO, CustomerEntity.class);
     }
 

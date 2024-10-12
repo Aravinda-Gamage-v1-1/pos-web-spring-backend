@@ -21,8 +21,10 @@ public class CustomerServiceIMPL implements CustomerService {
     private Mapping mapping;
 
     @Override
-    public void saveNote(CustomerDTO customerDTO) {
+    public void saveCustomer(CustomerDTO customerDTO) {
+        System.out.println("save customer6");
         customerDTO.setCustId(AppUtil.createCustomerId());
+        System.out.println(customerDTO.getCustId());
         var customerEntity = mapping.convertToEntity(customerDTO);
         var savedCustomer = customerDao.save(customerEntity);
         if (savedCustomer == null){
@@ -31,12 +33,12 @@ public class CustomerServiceIMPL implements CustomerService {
     }
 
     @Override
-    public void updateNote(String custId, CustomerDTO customerDTO) {
+    public void updateCustomer(String custId, CustomerDTO customerDTO) {
 
     }
 
     @Override
-    public void deleteNote(String custId) {
+    public void deleteCustomer(String custId) {
 
     }
 

@@ -17,5 +17,5 @@ public class CustomerEntity implements SuperEntity {
     private String cust_id;
     private String cust_name;
     private String cust_address;
-    private double cust_salary;
+    private String cust_salary;
 }
