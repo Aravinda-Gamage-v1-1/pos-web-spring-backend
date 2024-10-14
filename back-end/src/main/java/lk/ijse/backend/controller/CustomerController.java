@@ -21,21 +21,16 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveCustomer(@RequestBody CustomerDTO customerDTO) {
-        System.out.println("save customer1");
+    public ResponseEntity<Void> createCustomer(@RequestBody CustomerDTO customerDTO) {
         if (customerDTO == null) {
-            System.out.println("save customer2");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }else {
             try {
-                System.out.println("save customer3");
                 customerService.saveCustomer(customerDTO);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }catch (DataPersistFailedException e) {
-                System.out.println("save customer4");
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }catch (Exception e) {
-                System.out.println("save customer5");
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }

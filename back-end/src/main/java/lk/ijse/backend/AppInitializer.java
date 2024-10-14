@@ -2,6 +2,7 @@ package lk.ijse.backend;
 
 import java.io.*;
 
+import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.ServletRegistration;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -26,8 +27,8 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         return new String[]{"/"};
     }
 
-//    @Override
-//    protected void customizeRegistration(ServletRegistration.Dynamic servletRegistration) {
-//        servletRegistration.setLoadOnStartup(1);
-//    }
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic servletRegistration) {
+        servletRegistration.setMultipartConfig(new MultipartConfigElement("/tmp"));
+    }
 }

@@ -15,5 +15,5 @@ public class CustomerDTO implements SuperDTO, CustomerResponse {
     private String custId;
     private String custName;
     private String custAddress;
-    private double custSalary;
+    private String custSalary;
 }
