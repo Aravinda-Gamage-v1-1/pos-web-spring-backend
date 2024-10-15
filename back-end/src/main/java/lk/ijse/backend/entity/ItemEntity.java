@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "customer")
-public class CustomerEntity implements SuperEntity {
+@Table(name = "item")
+public class ItemEntity implements SuperEntity{
     @Id
-    private String custId;
-    private String custName;
-    private String custAddress;
-    private String custSalary;
+    private String itemId;
+    private String itemName;
+    private int quantity;
+    private double price;
 }

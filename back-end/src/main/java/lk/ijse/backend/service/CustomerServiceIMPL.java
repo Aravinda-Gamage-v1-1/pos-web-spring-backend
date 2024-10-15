@@ -26,7 +26,7 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public void saveCustomer(CustomerDTO customerDTO) {
-        var customerEntity = mapping.convertToEntity(customerDTO);
+        var customerEntity = mapping.convertToCustomerEntity(customerDTO);
         var savedCustomer = customerDao.save(customerEntity);
         System.out.println(2);
         if (savedCustomer == null){
@@ -36,13 +36,13 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public List<CustomerDTO> getAllCustomers() {
-        return mapping.convertToDTO(customerDao.findAll());
+        return mapping.convertToCustomerDTO(customerDao.findAll());
     }
 
     @Override
     public CustomerResponse getSelectedCustomer(String custId) {
         if (customerDao.existsById(custId)) {
-            return mapping.convertToDTO(customerDao.getReferenceById(custId));
+            return mapping.convertToCustomerDTO(customerDao.getReferenceById(custId));
         }else {
             return new CustomerErrorResponse(0, "Customer not found");
         }
