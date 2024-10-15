@@ -22,9 +22,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class WebAppRootConfig {
     @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+    public ModelMapper modelMapper() {return new ModelMapper();}
 
     @Bean
     public DataSource dataSource() {

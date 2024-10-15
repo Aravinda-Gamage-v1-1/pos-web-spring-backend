@@ -1,13 +1,15 @@
-package lk.ijse.backend.service;
+package lk.ijse.backend.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.backend.customeObj.ItemErrorResponse;
+import lk.ijse.backend.customeObj.impl.ItemErrorResponse;
 import lk.ijse.backend.customeObj.ItemResponse;
 import lk.ijse.backend.dao.ItemDao;
 import lk.ijse.backend.dto.impl.ItemDTO;
-import lk.ijse.backend.entity.ItemEntity;
+import lk.ijse.backend.entity.impl.ItemEntity;
 import lk.ijse.backend.exception.DataPersistFailedException;
 import lk.ijse.backend.exception.ItemNotFound;
+import lk.ijse.backend.service.ItemService;
+import lk.ijse.backend.util.AppUtil;
 import lk.ijse.backend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +20,18 @@ import java.util.Optional;
 @Service
 @Transactional
 public class ItemServiceIMPL implements ItemService {
+
     @Autowired
     private ItemDao itemDao;
-
     @Autowired
     private Mapping mapping;
 
     @Override
     public void saveItem(ItemDTO itemDTO) {
+        itemDTO.setItemId(AppUtil.createItemId());
         var itemEntity = mapping.convertToItemEntity(itemDTO);
         var savedItem = itemDao.save(itemEntity);
-        if (savedItem == null) {
+        if (savedItem == null && savedItem.getItemId() == null) {
             throw new DataPersistFailedException("Cannot save item");
         }
     }

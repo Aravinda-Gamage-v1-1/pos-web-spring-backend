@@ -1,13 +1,15 @@
-package lk.ijse.backend.service;
+package lk.ijse.backend.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.backend.customeObj.CustomerErrorResponse;
+import lk.ijse.backend.customeObj.impl.CustomerErrorResponse;
 import lk.ijse.backend.customeObj.CustomerResponse;
 import lk.ijse.backend.dao.CustomerDao;
 import lk.ijse.backend.dto.impl.CustomerDTO;
-import lk.ijse.backend.entity.CustomerEntity;
+import lk.ijse.backend.entity.impl.CustomerEntity;
 import lk.ijse.backend.exception.CustomerNotFound;
 import lk.ijse.backend.exception.DataPersistFailedException;
+import lk.ijse.backend.service.CustomerService;
+import lk.ijse.backend.util.AppUtil;
 import lk.ijse.backend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +28,10 @@ public class CustomerServiceIMPL implements CustomerService {
 
     @Override
     public void saveCustomer(CustomerDTO customerDTO) {
+        customerDTO.setCustId(AppUtil.createCustomerId());
         var customerEntity = mapping.convertToCustomerEntity(customerDTO);
         var savedCustomer = customerDao.save(customerEntity);
-        System.out.println(2);
-        if (savedCustomer == null){
+        if (savedCustomer == null && savedCustomer.getCustId() == null) {
             throw new DataPersistFailedException("Cannot save customer");
         }
     }

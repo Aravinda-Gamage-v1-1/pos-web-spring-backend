@@ -1,11 +1,14 @@
 package lk.ijse.backend.controller;
 
+import jakarta.validation.Valid;
 import lk.ijse.backend.customeObj.CustomerResponse;
 import lk.ijse.backend.dto.impl.CustomerDTO;
 import lk.ijse.backend.exception.CustomerNotFound;
 import lk.ijse.backend.exception.DataPersistFailedException;
 import lk.ijse.backend.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,11 +21,14 @@ import java.util.List;
 @RequestMapping("api/v1/customer")
 @RequiredArgsConstructor
 public class CustomerController {
+
     @Autowired
     private final CustomerService customerService;
 
+    static Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createCustomer(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<Void> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
         if (customerDTO == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }else {
@@ -46,7 +52,7 @@ public class CustomerController {
     }
 
     @PatchMapping(value = "/{custId}" , produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateCustomer(@PathVariable ("custId") String custId, @RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<Void> updateCustomer(@Valid @PathVariable ("custId") String custId, @RequestBody CustomerDTO customerDTO) {
         try {
             if (customerDTO == null && custId == null || customerDTO.equals("")) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

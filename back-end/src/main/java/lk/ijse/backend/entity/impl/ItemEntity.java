@@ -1,8 +1,9 @@
-package lk.ijse.backend.entity;
+package lk.ijse.backend.entity.impl;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lk.ijse.backend.entity.SuperEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "item")
-public class ItemEntity implements SuperEntity{
+public class ItemEntity implements SuperEntity {
     @Id
     private String itemId;
     private String itemName;

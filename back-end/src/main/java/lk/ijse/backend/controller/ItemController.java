@@ -1,11 +1,14 @@
 package lk.ijse.backend.controller;
 
+import jakarta.validation.Valid;
 import lk.ijse.backend.customeObj.ItemResponse;
 import lk.ijse.backend.dto.impl.ItemDTO;
 import lk.ijse.backend.exception.ItemNotFound;
 import lk.ijse.backend.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -19,11 +22,14 @@ import java.util.List;
 @RequestMapping("api/v1/item")
 @RequiredArgsConstructor
 public class ItemController {
+
     @Autowired
     private final ItemService itemService;
 
+    static Logger logger = LoggerFactory.getLogger(ItemController.class);
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createItem(@RequestBody ItemDTO itemDTO) {
+    public ResponseEntity<Void> createItem(@Valid @RequestBody ItemDTO itemDTO) {
         if (itemDTO == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }else {
@@ -49,7 +55,7 @@ public class ItemController {
     }
 
     @PatchMapping(value = "/{itemId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateItem(@PathVariable("itemId") String itemId, @RequestBody ItemDTO itemDTO) {
+    public ResponseEntity<Void> updateItem(@Valid @PathVariable("itemId") String itemId, @RequestBody ItemDTO itemDTO) {
         try {
             if (itemDTO == null && itemId == null || itemDTO.equals("")) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

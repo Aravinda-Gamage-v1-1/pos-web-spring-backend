@@ -1,5 +1,6 @@
-package lk.ijse.backend.customeObj;
+package lk.ijse.backend.customeObj.impl;
 
+import lk.ijse.backend.customeObj.ItemResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
